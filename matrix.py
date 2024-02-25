@@ -37,9 +37,40 @@ def OnMult(lines):
 
 
 
-def OnMultLine(lines):
 
-    pass
+def OnMultLine( lines):
+    pha, phb, phc = [], [], []
+
+    for i in range(lines):
+        for j in range(lines):
+            pha.append(1)
+
+    for i in range(lines):
+        for j in range(lines):
+            phb.append(i + 1)
+
+
+    for i in range(lines):
+        for j in range(lines):
+            phc.append(1)
+    
+    Time1 = time.time()
+
+
+    for i in range(lines):
+        for j in range(lines):
+            phc[i * lines + j] = pha[i * lines + j] * phb[j * lines + j]
+
+    Time2 = time.time()
+    
+ 
+    print("Time: %3.5f seconds\n" % (Time2 - Time1))
+    
+    for j in range(min(10, lines)):
+        print(phc[j], end=" ")
+    
+
+
 
 def OnMultBlock(lines, bkSize):
     
