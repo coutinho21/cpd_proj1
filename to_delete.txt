@@ -1,0 +1,259 @@
+up202108895@feup-b303d23:~/cpd/cpd_proj1$ g++ -02 matrix.cpp -o test -lpapi
+g++: error: unrecognized command-line option ‘-02’
+up202108895@feup-b303d23:~/cpd/cpd_proj1$ g++ -O2 matrix.cpp -o test -lpapi
+up202108895@feup-b303d23:~/cpd/cpd_proj1$ ./fileout
+bash: ./fileout: No such file or directory
+up202108895@feup-b303d23:~/cpd/cpd_proj1$ ./test
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 1
+Dimensions: lins=cols ? 100
+Time: 0.001 seconds
+Result matrix: 
+5050 5050 5050 5050 5050 5050 5050 5050 5050 5050 
+L1 DCM: 129565 
+L2 DCM: 11285 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 2
+Dimensions: lins=cols ? 100
+Time: 0.00002 seconds
+1 2 3 4 5 6 7 8 9 10 
+L1 DCM: 3987 
+L2 DCM: 8872 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 3
+Dimensions: lins=cols ? 100
+Block Size? 10
+Time: 0.00051 seconds
+955 955 955 955 955 955 955 955 955 955 
+L1 DCM: 19636 
+L2 DCM: 17532 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 3
+Dimensions: lins=cols ? 200
+Block Size? 10
+Time: 0.00328 seconds
+1955 1955 1955 1955 1955 1955 1955 1955 1955 1955 
+L1 DCM: 270386 
+L2 DCM: 192868 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 1
+Dimensions: lins=cols ? 600
+Time: 0.197 seconds
+Result matrix: 
+180300 180300 180300 180300 180300 180300 180300 180300 180300 180300 
+L1 DCM: 244798563 
+L2 DCM: 44756586 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 1
+Dimensions: lins=cols ? 600
+Time: 0.197 seconds
+Result matrix: 
+180300 180300 180300 180300 180300 180300 180300 180300 180300 180300 
+L1 DCM: 244754687 
+L2 DCM: 38792091 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 1
+Dimensions: lins=cols ? 600
+Time: 0.194 seconds
+Result matrix: 
+180300 180300 180300 180300 180300 180300 180300 180300 180300 180300 
+L1 DCM: 244794581 
+L2 DCM: 39733900 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 1
+Dimensions: lins=cols ? 600
+Time: 0.194 seconds
+Result matrix: 
+180300 180300 180300 180300 180300 180300 180300 180300 180300 180300 
+L1 DCM: 244774700 
+L2 DCM: 39031662 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 1
+Dimensions: lins=cols ? 1000
+Time: 1.091 seconds
+Result matrix: 
+500500 500500 500500 500500 500500 500500 500500 500500 500500 500500 
+L1 DCM: 1216630239 
+L2 DCM: 245799782 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 1
+Dimensions: lins=cols ? 1400
+Time: 3.258 seconds
+Result matrix: 
+980700 980700 980700 980700 980700 980700 980700 980700 980700 980700 
+L1 DCM: 3403644266 
+L2 DCM: 976800421 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 1
+Dimensions: lins=cols ? 1800
+Time: 18.880 seconds
+Result matrix: 
+1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 
+L1 DCM: 9090047329 
+L2 DCM: 7495836017 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 1
+Dimensions: lins=cols ? 2200
+Time: 38.898 seconds
+Result matrix: 
+2.4211e+06 2.4211e+06 2.4211e+06 2.4211e+06 2.4211e+06 2.4211e+06 2.4211e+06 2.4211e+06 2.4211e+06 2.4211e+06 
+L1 DCM: 17640946456 
+L2 DCM: 23447766342 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 1
+Dimensions: lins=cols ? 2600
+Time: 68.483 seconds
+Result matrix: 
+3.3813e+06 3.3813e+06 3.3813e+06 3.3813e+06 3.3813e+06 3.3813e+06 3.3813e+06 3.3813e+06 3.3813e+06 3.3813e+06 
+L1 DCM: 30893116903 
+L2 DCM: 51398162747 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 1   
+Dimensions: lins=cols ? 3000
+Time: 112.813 seconds
+Result matrix: 
+4.5015e+06 4.5015e+06 4.5015e+06 4.5015e+06 4.5015e+06 4.5015e+06 4.5015e+06 4.5015e+06 4.5015e+06 4.5015e+06 
+L1 DCM: 50315740286 
+L2 DCM: 98215007148 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 1
+Dimensions: lins=cols ? 1800
+Time: 17.865 seconds
+Result matrix: 
+1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 
+L1 DCM: 9066121106 
+L2 DCM: 8027374538 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 1
+Dimensions: lins=cols ? 1800
+Time: 17.941 seconds
+Result matrix: 
+1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 1.6209e+06 
+L1 DCM: 9066216679 
+L2 DCM: 7361765134 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 1
+Dimensions: lins=cols ? 1400
+Time: 3.333 seconds
+Result matrix: 
+980700 980700 980700 980700 980700 980700 980700 980700 980700 980700 
+L1 DCM: 3486357433 
+L2 DCM: 1352621977 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 3
+Dimensions: lins=cols ? 1000
+Block Size? 20
+Time: 0.47216 seconds
+19810 19810 19810 19810 19810 19810 19810 19810 19810 19810 
+L1 DCM: 15114866 
+L2 DCM: 34147876 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 1   
+Dimensions: lins=cols ? 1400
+Time: 3.389 seconds
+Result matrix: 
+980700 980700 980700 980700 980700 980700 980700 980700 980700 980700 
+L1 DCM: 3486750230 
+L2 DCM: 1339686803 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: ^C         
+up202108895@feup-b303d23:~/cpd/cpd_proj1$ python3 matrix.py 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: ^CTraceback (most recent call last):
+  File "/home/up202108895/cpd/cpd_proj1/matrix.py", line 99, in <module>
+    main()
+  File "/home/up202108895/cpd/cpd_proj1/matrix.py", line 85, in main
+    op = int(input("Selection?: "))
+KeyboardInterrupt
+
+up202108895@feup-b303d23:~/cpd/cpd_proj1$ ./test
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 1
+Dimensions: lins=cols ? 600
+Time: 0.197 seconds
+Result matrix: 
+180300 180300 180300 180300 180300 180300 180300 180300 180300 180300 
+L1 DCM: 244779757 
+L2 DCM: 38968055 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 1
+Dimensions: lins=cols ? 600
+Time: 0.192 seconds
+Result matrix: 
+180300 180300 180300 180300 180300 180300 180300 180300 180300 180300 
+L1 DCM: 244795339 
+L2 DCM: 40347256 
+
+1. Multiplication
+2. Line Multiplication
+3. Block Multiplication
+Selection?: 
