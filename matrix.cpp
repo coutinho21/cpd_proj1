@@ -17,7 +17,6 @@ void OnMult(int m_ar, int m_br)
 	
 	char st[100];
 	double temp;
-	int i, j, k;
 
 	double *pha, *phb, *phc;
 	
@@ -27,28 +26,32 @@ void OnMult(int m_ar, int m_br)
 	phb = (double *)malloc((m_ar * m_ar) * sizeof(double));
 	phc = (double *)malloc((m_ar * m_ar) * sizeof(double));
 
-	for(i=0; i<m_ar; i++)
-		for(j=0; j<m_ar; j++)
+	for(int i = 0; i < m_ar; i++) {
+		for(int j = 0; j < m_ar; j++) {
 			pha[i*m_ar + j] = (double)1.0;
+		}
+	}
 
-
-
-	for(i=0; i<m_br; i++)
-		for(j=0; j<m_br; j++)
+	for(int i = 0; i < m_br; i++) {
+		for(int j = 0; j < m_br; j++) {
 			phb[i*m_br + j] = (double)(i+1);
+		}
+	}
 
+	for(int i = 0; i < m_br; i++) {
+        for(int j = 0; j < m_br; j++) {
+            phc[i*m_br + j] = (double)0.0;
+		}
+	}
 
 
     Time1 = clock();
 
-	for(i=0; i<m_ar; i++)
-	{	for( j=0; j<m_br; j++)
-		{	temp = 0;
-			for( k=0; k<m_ar; k++)
-			{	
-				temp += pha[i*m_ar+k] * phb[k*m_br+j];
+	for(int i = 0; i < m_ar; i++) {
+		for(int j = 0; j < m_br; j++) {
+			for(int k = 0; k < m_ar; k++) {	
+				phc[i*m_ar+j] += pha[i*m_ar+k] * phb[k*m_br+j];
 			}
-			phc[i*m_ar+j]=temp;
 		}
 	}
 
@@ -59,10 +62,9 @@ void OnMult(int m_ar, int m_br)
 
 	// display 10 elements of the result matrix to verify correctness
 	cout << "Result matrix: " << endl;
-	for(i=0; i<1; i++)
-	{	for(j=0; j<min(10,m_br); j++)
-			cout << phc[j] << " ";
-	}
+	for(int i = 0; i < min(10,m_br); i++)
+		cout << phc[i] << " ";
+	
 	cout << endl;
 
     free(pha);
@@ -84,35 +86,44 @@ void OnMultLine(int m_ar, int m_br)
     phc = (double *)malloc((m_ar * m_ar) * sizeof(double));
 
     // Initialize matrices
-    for(int i=0; i<m_ar; i++)
-        for(int j=0; j<m_ar; j++)
+    for(int i = 0; i < m_ar; i++) {
+        for(int j = 0; j < m_ar; j++) {
             pha[i*m_ar + j] = (double)1.0;
+		}
+	}
 
-    for(int i=0; i<m_br; i++)
-        for(int j=0; j<m_br; j++)
+    for(int i = 0; i < m_br; i++) {
+        for(int j = 0; j < m_br; j++) {
             phb[i*m_br + j] = (double)(i+1);
+		}
+	}
+	
+	for(int i = 0; i < m_br; i++) {
+        for(int j = 0; j < m_br; j++) {
+            phc[i*m_br + j] = (double)0.0;
+		}
+	}
 
 	Time1 = clock();
 
 
-    for(int i=0; i<m_ar; i++)
-    {
-        for(int j=0; j<m_br; j++)
-        {
-            phc[i*m_ar+j] = pha[i*m_ar+j] * phb[j*m_br+j];
+    for(int i = 0; i < m_ar; i++) {  
+		for(int k = 0; k < m_ar; k++ ) {
+			for( int j = 0; j < m_br; j++) {    
+                phc[i*m_ar+j] += pha[i*m_ar+k] * phb[k*m_br+j];
+            }
         }
     }
+
 
 
 	Time2 = clock();
 	sprintf(st, "Time: %3.5f seconds\n", (double)(Time2 - Time1) / CLOCKS_PER_SEC);
 	cout << st;
 
-    for(int i=0; i<1; i++)
-    {
-        for(int j=0; j<min(10,m_br); j++)
-            cout << phc[j] << " ";
-    }
+	for(int i = 0; i < min(10,m_br); i++)
+		cout << phc[i] << " ";
+    
     cout << endl;
 
     free(pha);
@@ -131,34 +142,35 @@ void OnMultBlock(int m_ar, int m_br, int bkSize)
     phc = (double *)malloc((m_ar * m_ar) * sizeof(double));
 
     // Initialize matrices
-    for(int i=0; i<m_ar; i++)
-        for(int j=0; j<m_ar; j++)
+    for(int i = 0; i < m_ar; i++) {
+        for(int j = 0; j < m_ar; j++) {
             pha[i*m_ar + j] = (double)1.0;
+		}
+	}
 
-    for(int i=0; i<m_br; i++)
-        for(int j=0; j<m_br; j++)
+    for(int i = 0; i < m_br; i++) {
+        for(int j = 0; j < m_br; j++) {
             phb[i*m_br + j] = (double)(i+1);
+		}
+	}
+	
+	for(int i = 0; i < m_br; i++) {
+        for(int j = 0; j < m_br; j++) {
+            phc[i*m_br + j] = (double)0.0;
+		}
+	}
 
     Time1 = clock();
 
-    // Perform block matrix multiplication
-    for(int ii=0; ii<m_ar; ii+=bkSize)
-    {
-        for(int jj=0; jj<m_br; jj+=bkSize)
-        {
-            for(int kk=0; kk<m_ar; kk+=bkSize)
-            {
-                // Multiply each block
-                for(int i=ii; i<min(ii+bkSize,m_ar); i++)
-                {
-                    for(int j=jj; j<min(jj+bkSize,m_br); j++)
-                    {
-                        double temp = 0;
-                        for(int k=kk; k<min(kk+bkSize,m_ar); k++)
-                        {
-                            temp += pha[i*m_ar+k] * phb[k*m_br+j];
+
+	for(int a = 0 ; a < m_ar; a += bkSize) {    
+        for(int b = 0; b < m_ar; b += bkSize) { 
+            for(int c = 0; c < m_br; c += bkSize) {
+                for (int i = a ; i < a + bkSize ; i++) {    
+                    for (int k = b ; k < b + bkSize ; k++) {
+                        for (int j = c ; j < c + bkSize ; j++) {
+                            phc[i*m_ar+j] += pha[i*m_ar+k] * phb[k*m_br+j];
                         }
-                        phc[i*m_ar+j] = temp;
                     }
                 }
             }
@@ -170,11 +182,10 @@ void OnMultBlock(int m_ar, int m_br, int bkSize)
     cout << st;
 
     // Display 10 elements of the result matrix to verify correctness
-    for(int i=0; i<1; i++)
-    {
-        for(int j=0; j<min(10,m_br); j++)
-            cout << phc[j] << " ";
-    }
+	for(int i = 0; i < min(10,m_br); i++) {
+		cout << phc[i] << " ";
+	}
+    
     cout << endl;
 
     free(pha);
