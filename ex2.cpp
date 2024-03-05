@@ -88,7 +88,7 @@ void OnMultLine(int m_ar, int m_br)
 	Time1 = clock();
 
 	int option;
-	cout << "Option :" << endl;
+	cout << "Option :";
 	cin >> option;
 
 	if (option == 1)
@@ -114,7 +114,7 @@ void OnMultLine(int m_ar, int m_br)
 				}
 	}
 	else {
-		  for(int i=0; i<m_ar; i++)
+		  for(int i=0; i<m_ar; i++)	
     {    for(int  k=0; k<m_ar; k++ )
         { for(int j=0; j<m_br; j++)
             {    
@@ -232,7 +232,7 @@ int main(int argc, char *argv[])
 	int op;
 
 	int EventSet = PAPI_NULL;
-	long long values[2];
+	long long values[3];
 	int ret;
 
 	ret = PAPI_library_init(PAPI_VER_CURRENT);
@@ -250,6 +250,10 @@ int main(int argc, char *argv[])
 	ret = PAPI_add_event(EventSet, PAPI_L2_DCM);
 	if (ret != PAPI_OK)
 		cout << "ERROR: PAPI_L2_DCM" << endl;
+
+	ret = PAPI_add_event(EventSet, PAPI_FP_OPS);
+	if (ret != PAPI_OK)
+		cout << "ERROR: PAPI_FP_OPS" << endl;
 
 	op = 1;
 	do
@@ -291,6 +295,7 @@ int main(int argc, char *argv[])
 			cout << "ERROR: Stop PAPI" << endl;
 		printf("L1 DCM: %lld \n", values[0]);
 		printf("L2 DCM: %lld \n", values[1]);
+		printf("FP_OPS: %lld \n", values[2]);
 
 		ret = PAPI_reset(EventSet);
 		if (ret != PAPI_OK)
@@ -303,6 +308,10 @@ int main(int argc, char *argv[])
 		std::cout << "FAIL remove event" << endl;
 
 	ret = PAPI_remove_event(EventSet, PAPI_L2_DCM);
+	if (ret != PAPI_OK)
+		std::cout << "FAIL remove event" << endl;
+
+	ret = PAPI_remove_event(EventSet, PAPI_FP_OPS);
 	if (ret != PAPI_OK)
 		std::cout << "FAIL remove event" << endl;
 
