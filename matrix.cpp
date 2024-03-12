@@ -4,6 +4,7 @@
 #include <time.h>
 #include <cstdlib>
 #include <papi.h>
+#include <omp.h>
 
 using namespace std;
 
@@ -68,10 +69,11 @@ void OnMult(int m_ar, int m_br)
 // add code here for line x line matriz multiplication
 void OnMultLine(int m_ar, int m_br)
 {
-
-    SYSTEMTIME Time1, Time2, Time3, Time4, Time5, Time6;
+    SYSTEMTIME Time1, Time2;
+    double time3, time4, time5, time6;
     char st[100];
     double *pha, *phb, *phc1, *phc2, *phc3;
+    int i, j, k;
     pha = (double *)malloc((m_ar * m_ar) * sizeof(double));
     phb = (double *)malloc((m_ar * m_ar) * sizeof(double));
     phc1 = (double *)malloc((m_ar * m_ar) * sizeof(double));
@@ -79,35 +81,35 @@ void OnMultLine(int m_ar, int m_br)
     phc3 = (double *)malloc((m_ar * m_ar) * sizeof(double));
 
     // Initialize matrices
-    for (int i = 0; i < m_ar; i++)
-        for (int j = 0; j < m_ar; j++)
+    for ( i = 0; i < m_ar; i++)
+        for ( j = 0; j < m_ar; j++)
             pha[i * m_ar + j] = (double)1.0;
 
-    for (int i = 0; i < m_br; i++)
-        for (int j = 0; j < m_br; j++)
+    for ( i = 0; i < m_br; i++)
+        for ( j = 0; j < m_br; j++)
             phb[i * m_br + j] = (double)(i + 1);
 
-    for (int i = 0; i < m_br; i++)
-        for (int j = 0; j < m_br; j++)
+    for ( i = 0; i < m_br; i++)
+        for ( j = 0; j < m_br; j++)
             phc1[i * m_br + j] = (double)0.0;
 
-    for (int i = 0; i < m_br; i++)
-        for (int j = 0; j < m_br; j++)
+    for ( i = 0; i < m_br; i++)
+        for ( j = 0; j < m_br; j++)
             phc2[i * m_br + j] = (double)0.0;
 
-    for (int i = 0; i < m_br; i++)
-        for (int j = 0; j < m_br; j++)
+    for ( i = 0; i < m_br; i++)
+        for ( j = 0; j < m_br; j++)
             phc3[i * m_br + j] = (double)0.0;
 
     // NORMAL
 
     Time1 = clock();
 
-    for (int i = 0; i < m_ar; i++)
+    for ( i = 0; i < m_ar; i++)
     {
-        for (int k = 0; k < m_ar; k++)
+        for ( k = 0; k < m_ar; k++)
         {
-            for (int j = 0; j < m_br; j++)
+            for ( j = 0; j < m_br; j++)
             {
                 phc1[i * m_ar + j] += pha[i * m_ar + k] * phb[k * m_br + j];
             }
@@ -118,42 +120,44 @@ void OnMultLine(int m_ar, int m_br)
 
     // OPTION1 ///Medir tempo que é sequencial e tempo que é paralelo depois
 
-    Time3 = clock();
+    time3 = omp_get_wtime();
+
     #pragma omp parallel for
-    for (int i = 0; i < m_ar; i++)
-        for (int k = 0; k < m_ar; k++)
-            for (int j = 0; j < m_ar; j++)
+    for (i = 0; i < m_ar; i++)
+        for (k = 0; k < m_ar; k++)
+            for (j = 0; j < m_ar; j++)
             {
                 phc2[i * m_ar + j] += pha[i * m_ar + k] * phb[k * m_br + j];
             }
 
-    Time4 = clock();
+    time4 = omp_get_wtime();
 
 
     // OPTION2 ///Medir tempo que é sequencial e tempo que é paralelo depois
 
     //Falta cena para medir os Mflops com o PAPI
 
-    Time5 = clock();
+    time5 = omp_get_wtime();
 
     #pragma omp parallel
-    for (int i = 0; i < m_ar; i++)
-        for (int k = 0; k < m_ar; k++)
+    for (i = 0; i < m_ar; i++)
+        for (k = 0; k < m_ar; k++)
             #pragma omp for
-            for (int j = 0; j < m_ar; j++)
+            for (j = 0; j < m_ar; j++)
             {
                 phc3[i * m_ar + j] += pha[i * m_ar + k] * phb[k * m_br + j];
             }
 
-    Time6 = clock();
+    time6 = omp_get_wtime();
+    
 
-    sprintf(st, "Normal time: %3.5f seconds\n", (double)(Time2 - Time1) / CLOCKS_PER_SEC);
+    sprintf(st, "Normal time: %3.8f seconds\n", (double)(Time2 - Time1) / CLOCKS_PER_SEC);
     cout << st;
 
-    sprintf(st, "Option 1 time: %3.5f seconds\n", (double)(Time4 - Time3) / CLOCKS_PER_SEC);
+    sprintf(st, "Option 1 time: %3.8f seconds\n", (double)(time4 - time3));
     cout << st;
 
-    sprintf(st, "Option 2 time: %3.5f seconds\n", (double)(Time6 - Time5) / CLOCKS_PER_SEC);
+    sprintf(st, "Option 2 time: %3.8f seconds\n", (double)(time6 - time5));
     cout << st;
 
     for (int i = 0; i < 1; i++)
@@ -286,9 +290,9 @@ int main(int argc, char *argv[])
     if (ret != PAPI_OK)
         cout << "ERROR: PAPI_L2_DCM" << endl;
 
-    ret =PAPI_add_event(EventSet, PAPI_SP_OPS);
+    ret =PAPI_add_event(EventSet, PAPI_DP_OPS);
     if (ret != PAPI_OK)
-        cout << "ERROR: PAPI_SP_OPS" << endl;
+        cout << "ERROR: PAPI_DP_OPS" << endl;
 
     op = 1;
     do
@@ -330,7 +334,7 @@ int main(int argc, char *argv[])
             cout << "ERROR: Stop PAPI" << endl;
         printf("L1 DCM: %lld \n", values[0]);
         printf("L2 DCM: %lld \n", values[1]);
-        printf("SP_OPS: %lld \n", values[2]);
+        printf("DP_OPS: %lld \n", values[2]);
 
         ret = PAPI_reset(EventSet);
         if (ret != PAPI_OK)
@@ -346,7 +350,7 @@ int main(int argc, char *argv[])
     if (ret != PAPI_OK)
         std::cout << "FAIL remove event" << endl;
 
-    ret = PAPI_remove_event(EventSet, PAPI_SP_OPS);
+    ret = PAPI_remove_event(EventSet, PAPI_DP_OPS);
     if (ret != PAPI_OK)
         std::cout << "FAIL remove event" << endl;
 
